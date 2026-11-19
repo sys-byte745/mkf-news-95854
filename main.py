@@ -226,14 +226,22 @@ def render():
     cnv.text_right("EDITION: GLOBAL", 74, (150, 148, 140), 1, W - 24)
 
     # -- headline strip ---------------------------------------------------
-    y = 110
+    y = 108
     cnv.text_center("THE WORLD IN SIX STORIES", y, COL_INK, 3)
     y += 30
     cnv.hline(60, y, W - 120, COL_RULE, 1)
     y += 8
 
+    # -- market ticker ----------------------------------------------------
+    cnv.rect(24, y, W - 48, 26, COL_INK)
+    tick = ("DJ 47,312 +0.4%   NASDAQ 23,890 +0.7%   S&P 6,845 +0.3%   "
+            "FTSE 9,710 -0.1%   NIKKEI 51,204 +0.9%   OIL $71.20   "
+            "GOLD $4,115   EUR/USD 1.17   USD/JPY 155.2")
+    cnv.text(tick, 34, y + 9, (250, 214, 120), 1)
+    y += 32
+
     # -- 2x3 issue boxes --------------------------------------------------
-    bx, by, bw, bh, gx, gy = 24, y, 312, 232, 20, 14
+    bx, by, bw, bh, gx, gy = 24, y, 312, 214, 20, 14
     for i, (tag, accent, l1, l2, l3, l4) in enumerate(ISSUES):
         col = i % 2
         row = i // 2
@@ -248,11 +256,15 @@ def render():
         for line in (l1, l2, l3, l4):
             cnv.text(line, x + 14, ty, COL_INK, 1)
             ty += 12
+        cnv.text_right("P.%d" % (i + 2), ty + 4, (110, 108, 100), 1,
+                       x + bw - 14)
         cnv.text("FULL STORY, P.%d" % (i + 2), x + 14, yy + bh - 18,
                  (110, 108, 100), 1)
 
     # -- footer -----------------------------------------------------------
     fy = H - 40
+    cnv.text("NEWS-IMAGE-20261119", 24, fy + 30, (150, 148, 140), 1)
+    cnv.text_right("SYS-BYTE745 RENDER", fy + 30, (150, 148, 140), 1, W - 24)
     cnv.rect(0, fy, W, 40, COL_INK)
     cnv.text_center("SYS-BYTE745  /  MAKE.FUN  /  NEWS-IMAGE-20261119  /  "
                     "RENDERED WITH ZLIB + STRUCT", fy + 15, COL_WHITE, 1)
